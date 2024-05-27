@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://ciqw708aml77n"]
+[gd_scene load_steps=7 format=3 uid="uid://ciqw708aml77n"]
 
 [ext_resource type="PackedScene" uid="uid://vq6gatf5mu0r" path="res://scenes/platform.tscn" id="1_yderr"]
 [ext_resource type="PackedScene" uid="uid://hj1fmu6xyd28" path="res://scenes/player.tscn" id="2_1oq6u"]
 [ext_resource type="PackedScene" uid="uid://cg3wxtx3hx704" path="res://scenes/charging_pole.tscn" id="3_pr3f4"]
 [ext_resource type="PackedScene" uid="uid://b1ibotwepo7j2" path="res://scenes/button_normal.tscn" id="4_o5qpj"]
+[ext_resource type="PackedScene" uid="uid://0v651ev632rr" path="res://scenes/pressure_plate.tscn" id="5_gni5t"]
+[ext_resource type="PackedScene" uid="uid://cajw0nagfft6l" path="res://scenes/door_medium.tscn" id="6_2q8wn"]
 
 [node name="Main" type="Node2D"]
 
@@ -24,12 +26,24 @@ position = Vector2(258, 413)
 rotation = 1.5708
 
 [node name="Platform4" parent="Platforms" instance=ExtResource("1_yderr")]
-position = Vector2(133, -789)
+position = Vector2(133, -736)
 rotation = 1.5708
 
 [node name="Platform3" parent="Platforms" instance=ExtResource("1_yderr")]
 position = Vector2(-237, 189)
 rotation = 1.5708
 
+[node name="PressurePlate" parent="." instance=ExtResource("5_gni5t")]
+position = Vector2(41, -16)
+toggle = true
+door = NodePath("../DoorMedium")
+
+[node name="DoorMedium" parent="." instance=ExtResource("6_2q8wn")]
+position = Vector2(131, -16)
+
+[node name="DoorMedium2" parent="." instance=ExtResource("6_2q8wn")]
+position = Vector2(-72, -16)
+
 [node name="ButtonNormal" parent="." instance=ExtResource("4_o5qpj")]
-position = Vector2(9, -16)
+position = Vector2(-49, -16)
+door = NodePath("../DoorMedium2")
