@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0traef0olmyi"]
+
+[ext_resource type="Script" path="res://scripts/PlaterMovement.gd" id="1_u1jx2"]
+[ext_resource type="Texture2D" uid="uid://cggdfd3g31mdo" path="res://art/icon.svg" id="2_11sq7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlsqu"]
+size = Vector2(45, 43)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_u1jx2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.32559, 0.32559)
+texture = ExtResource("2_11sq7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_tlsqu")
