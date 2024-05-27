@@ -5,18 +5,22 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Platform" parent="." instance=ExtResource("1_yderr")]
-
 [node name="Player" parent="." instance=ExtResource("2_1oq6u")]
+unique_name_in_owner = true
 position = Vector2(0, -271.335)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(2, 2)
+[node name="Platforms" type="Node" parent="."]
 
-[node name="Platform2" parent="." instance=ExtResource("1_yderr")]
-position = Vector2(135, 175)
+[node name="Platform" parent="Platforms" instance=ExtResource("1_yderr")]
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("1_yderr")]
+position = Vector2(238, 197)
 rotation = 1.5708
 
-[node name="Platform3" parent="." instance=ExtResource("1_yderr")]
-position = Vector2(-230, 159)
+[node name="Platform4" parent="Platforms" instance=ExtResource("1_yderr")]
+position = Vector2(133, -789)
+rotation = 1.5708
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("1_yderr")]
+position = Vector2(-237, 189)
 rotation = 1.5708

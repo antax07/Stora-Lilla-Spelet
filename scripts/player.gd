@@ -11,13 +11,58 @@ const AIR_CONTROL = 0.3
 const JUMP_HOLD_TIME = 0.2
 const WALL_SLIDE_SPEED = 100.0
 
+# Constants for sprite sizes
+const BIG_SCALE = 2.0
+const NORMAL_SCALE = 1.0
+const SMALL_SCALE = 0.5
+
+# SpriteFrames for different sizes
+@export var sprite_frames_big: SpriteFrames
+@export var sprite_frames_normal: SpriteFrames
+@export var sprite_frames_small: SpriteFrames
+
+# Variables
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_time_counter = 0.0
 var jump_buffer_counter = 0.0
 var jump_hold_counter = 0.0
 var is_wall_sliding = false
 
+# Collision shapes for different sizes
+@onready var collision_shape_big = $CollisionShapeBig
+@onready var collision_shape_normal = $CollisionShapeNormal
+@onready var collision_shape_small = $CollisionShapeSmall
+
+# The AnimatedSprite2D node
 @onready var animated_sprite = $AnimatedSprite2D
+
+func _ready():
+	# Ensure only the normal collision shape is active initially
+	set_collision_shape(NORMAL_SCALE)
+
+func set_collision_shape(scale):
+	collision_shape_big.disabled = true
+	collision_shape_normal.disabled = true
+	collision_shape_small.disabled = true
+
+	if scale == BIG_SCALE:
+		collision_shape_big.disabled = false
+		animated_sprite.frames = sprite_frames_big
+	elif scale == NORMAL_SCALE:
+		collision_shape_normal.disabled = false
+		animated_sprite.frames = sprite_frames_normal
+	elif scale == SMALL_SCALE:
+		collision_shape_small.disabled = false
+		animated_sprite.frames = sprite_frames_small
+
+func _on_button_big_pressed():
+	set_collision_shape(BIG_SCALE)
+
+func _on_button_normal_pressed():
+	set_collision_shape(NORMAL_SCALE)
+
+func _on_button_small_pressed():
+	set_collision_shape(SMALL_SCALE)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -97,3 +142,5 @@ func _physics_process(delta):
 
 	if not is_on_floor() and velocity.y > 0:
 		animated_sprite.play("fall")
+
+
