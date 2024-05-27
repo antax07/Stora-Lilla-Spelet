@@ -8,15 +8,11 @@
 [node name="Platform" parent="." instance=ExtResource("1_yderr")]
 
 [node name="Player" parent="." instance=ExtResource("2_1oq6u")]
-position = Vector2(0, -271.335)
+position = Vector2(0, -101)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
 
 [node name="Platform2" parent="." instance=ExtResource("1_yderr")]
 position = Vector2(135, 175)
-rotation = 1.5708
-
-[node name="Platform3" parent="." instance=ExtResource("1_yderr")]
-position = Vector2(-230, 159)
 rotation = 1.5708
