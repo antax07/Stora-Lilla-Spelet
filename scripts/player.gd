@@ -144,7 +144,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("interact"):
 		var interactables = get_tree().get_nodes_in_group("interactable")
 		for interactable in interactables:
-			if global_position.distance_to(interactable.global_position) < 20:
+			if global_position.distance_to(interactable.global_position) < 20 * current_scale:
 				interactable.activate()
 
 func _physics_process(delta):
