@@ -40,6 +40,7 @@ autoplay = "idle"
 zoom = Vector2(2, 2)
 
 [node name="UI" type="Control" parent="."]
+z_index = 50
 layout_mode = 3
 anchors_preset = 0
 offset_left = -284.0

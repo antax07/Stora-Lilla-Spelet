@@ -141,6 +141,11 @@ func _process(delta):
 		else:
 			battery_enabled = true
 			battery_level = BATTERY_MAX
+	if Input.is_action_just_pressed("interact"):
+		var interactables = get_tree().get_nodes_in_group("interactable")
+		for interactable in interactables:
+			if global_position.distance_to(interactable.global_position) < 20:
+				interactable.activate()
 
 func _physics_process(delta):
 	update_battery_ui()
