@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://ciqw708aml77n"]
+[gd_scene load_steps=3 format=3 uid="uid://ciqw708aml77n"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_nwxuj"]
+[ext_resource type="PackedScene" uid="uid://vq6gatf5mu0r" path="res://scenes/platform.tscn" id="1_yderr"]
+[ext_resource type="PackedScene" uid="uid://hj1fmu6xyd28" path="res://scenes/player.tscn" id="2_1oq6u"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_nwxuj")
+
+[node name="Player" parent="." instance=ExtResource("2_1oq6u")]
+unique_name_in_owner = true
+position = Vector2(0, -271.335)
+
+[node name="Platforms" type="Node" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("1_yderr")]
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("1_yderr")]
+position = Vector2(238, 197)
+rotation = 1.5708
+
+[node name="Platform4" parent="Platforms" instance=ExtResource("1_yderr")]
+position = Vector2(133, -789)
+rotation = 1.5708
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("1_yderr")]
+position = Vector2(-237, 189)
+rotation = 1.5708
