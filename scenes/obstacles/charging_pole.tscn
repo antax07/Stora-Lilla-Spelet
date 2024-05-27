@@ -1,19 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://cg3wxtx3hx704"]
 
-[ext_resource type="Texture2D" uid="uid://cggdfd3g31mdo" path="res://icon.svg" id="1_l8vd2"]
 [ext_resource type="Script" path="res://scripts/charging_pole.gd" id="1_qb2dk"]
+[ext_resource type="Texture2D" uid="uid://cnejx0ckir1ug" path="res://art/liten-stor_sheet.png" id="2_c3kml"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hsvy7"]
-size = Vector2(34, 50)
+size = Vector2(17, 16)
 
 [node name="Charging Pole" type="Area2D"]
 script = ExtResource("1_qb2dk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(5.96046e-08, -24)
-scale = Vector2(0.234375, 0.359375)
-texture = ExtResource("1_l8vd2")
+position = Vector2(0, -8)
+texture = ExtResource("2_c3kml")
+region_enabled = true
+region_rect = Rect2(48, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -24)
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_hsvy7")

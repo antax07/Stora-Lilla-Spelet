@@ -57,8 +57,9 @@ func _ready():
 	increase_delay_button.connect("pressed", _on_increase_delay_button_pressed)
 	decrease_delay_button.connect("pressed", _on_decrease_delay_button_pressed)
 	var charging_pole = get_node("../ChargingPole")
-	charging_pole.connect("player_entered", _on_player_entered)
-	charging_pole.connect("player_exited", _on_player_exited)
+	if charging_pole != null:
+		charging_pole.connect("player_entered", _on_player_entered)
+		charging_pole.connect("player_exited", _on_player_exited)
 
 func set_collision_shape(scale):
 	if battery_enabled and battery_level <= 0:

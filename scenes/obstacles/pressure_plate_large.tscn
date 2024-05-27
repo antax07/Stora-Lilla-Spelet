@@ -4,17 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://cc6hk0cws0ngh" path="res://art/pressure_plate.png" id="1_poplq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q21ph"]
-size = Vector2(24, 4)
+size = Vector2(34, 5)
 
-[node name="PressurePlate" type="Area2D"]
+[node name="PressurePlateLarge" type="Area2D"]
 script = ExtResource("1_hsr37")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -8)
 texture = ExtResource("1_poplq")
-hframes = 2
-frame = 1
+vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_q21ph")

@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://ciqw708aml77n"]
+[gd_scene load_steps=10 format=3 uid="uid://ciqw708aml77n"]
 
 [ext_resource type="PackedScene" uid="uid://vq6gatf5mu0r" path="res://scenes/platform.tscn" id="1_yderr"]
 [ext_resource type="PackedScene" uid="uid://hj1fmu6xyd28" path="res://scenes/player.tscn" id="2_1oq6u"]
-[ext_resource type="PackedScene" uid="uid://cg3wxtx3hx704" path="res://scenes/charging_pole.tscn" id="3_pr3f4"]
-[ext_resource type="PackedScene" uid="uid://b1ibotwepo7j2" path="res://scenes/button_normal.tscn" id="4_o5qpj"]
-[ext_resource type="PackedScene" uid="uid://0v651ev632rr" path="res://scenes/pressure_plate.tscn" id="5_gni5t"]
-[ext_resource type="PackedScene" uid="uid://cajw0nagfft6l" path="res://scenes/door_medium.tscn" id="6_2q8wn"]
+[ext_resource type="PackedScene" uid="uid://cg3wxtx3hx704" path="res://scenes/obstacles/charging_pole.tscn" id="3_pr3f4"]
+[ext_resource type="PackedScene" uid="uid://b1ibotwepo7j2" path="res://scenes/obstacles/button_normal.tscn" id="4_o5qpj"]
+[ext_resource type="PackedScene" uid="uid://0v651ev632rr" path="res://scenes/obstacles/pressure_plate_large.tscn" id="5_gni5t"]
+[ext_resource type="PackedScene" uid="uid://cajw0nagfft6l" path="res://scenes/obstacles/door_medium.tscn" id="6_2q8wn"]
+[ext_resource type="PackedScene" uid="uid://cn5pglfkqxnq" path="res://scenes/obstacles/door_large.tscn" id="7_dd3xg"]
+[ext_resource type="PackedScene" uid="uid://coaw3nycynj6v" path="res://scenes/obstacles/door_small.tscn" id="8_qthmr"]
+[ext_resource type="PackedScene" uid="uid://bne0rqparkbbi" path="res://scenes/obstacles/pressure_plate_medium.tscn" id="9_oxi64"]
 
 [node name="Main" type="Node2D"]
 
@@ -22,11 +25,11 @@ position = Vector2(0, -271.335)
 position = Vector2(-33, 4)
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("1_yderr")]
-position = Vector2(258, 413)
+position = Vector2(249, -712)
 rotation = 1.5708
 
 [node name="Platform4" parent="Platforms" instance=ExtResource("1_yderr")]
-position = Vector2(133, -736)
+position = Vector2(133, -804)
 rotation = 1.5708
 
 [node name="Platform3" parent="Platforms" instance=ExtResource("1_yderr")]
@@ -42,7 +45,7 @@ door = NodePath("../DoorMedium")
 position = Vector2(131, -16)
 
 [node name="DoorMedium2" parent="." instance=ExtResource("6_2q8wn")]
-position = Vector2(-72, -16)
+position = Vector2(-72, -12)
 
 [node name="ButtonNormal" parent="." instance=ExtResource("4_o5qpj")]
 position = Vector2(-49, -16)
@@ -55,3 +58,17 @@ offset_right = 86.0
 offset_bottom = -85.0
 text = "tryck 1 för att toggla batteri mode
 tryck e för knapp"
+
+[node name="DoorLarge" parent="." instance=ExtResource("7_dd3xg")]
+position = Vector2(185, -40)
+
+[node name="PressurePlate2" parent="." instance=ExtResource("5_gni5t")]
+position = Vector2(158, -16)
+toggle = true
+door = NodePath("../DoorLarge")
+
+[node name="DoorSmall" parent="." instance=ExtResource("8_qthmr")]
+position = Vector2(248, -16)
+
+[node name="PressurePlateMedium" parent="." instance=ExtResource("9_oxi64")]
+position = Vector2(217, -16)

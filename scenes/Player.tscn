@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://hj1fmu6xyd28"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dgudu"]
-[ext_resource type="SpriteFrames" uid="uid://drklf6fxh4wnw" path="res://scenes/sprite_frames_normal.tres" id="2_eemij"]
-[ext_resource type="SpriteFrames" uid="uid://kg4hrvv2xtqr" path="res://scenes/sprite_frames_big.tres" id="2_h48i2"]
-[ext_resource type="SpriteFrames" uid="uid://dfx31rf43raun" path="res://scenes/sprite_frames_small.tres" id="2_oc7od"]
+[ext_resource type="SpriteFrames" uid="uid://drklf6fxh4wnw" path="res://resources/sprite_frames_normal.tres" id="2_eemij"]
+[ext_resource type="SpriteFrames" uid="uid://kg4hrvv2xtqr" path="res://resources/sprite_frames_big.tres" id="2_h48i2"]
+[ext_resource type="SpriteFrames" uid="uid://dfx31rf43raun" path="res://resources/sprite_frames_small.tres" id="2_oc7od"]
 [ext_resource type="Texture2D" uid="uid://cggdfd3g31mdo" path="res://icon.svg" id="5_6yorm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p7ivy"]
