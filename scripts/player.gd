@@ -140,6 +140,7 @@ func _process(delta):
 			battery_enabled = false
 		else:
 			battery_enabled = true
+			battery_level = BATTERY_MAX
 
 func _physics_process(delta):
 	update_battery_ui()
