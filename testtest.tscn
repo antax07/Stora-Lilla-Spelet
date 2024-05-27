@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://qoxpwt18nh02"]
+
+[ext_resource type="Script" path="res://PlaterMovement.gd" id="1_05v4k"]
+[ext_resource type="Texture2D" uid="uid://cggdfd3g31mdo" path="res://icon.svg" id="2_11lan"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eeevk"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tn1wf"]
+size = Vector2(1219, 77)
+
+[node name="Testtest" type="Node2D"]
+
+[node name="player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_05v4k")
+gravity = 86
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+modulate = Color(0.0509804, 0.388235, 0.152941, 1)
+scale = Vector2(0.386768, 0.386768)
+texture = ExtResource("2_11lan")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+shape = SubResource("RectangleShape2D_eeevk")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(576.5, 608.5)
+shape = SubResource("RectangleShape2D_tn1wf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(584.5, 632)
+scale = Vector2(9.66406, 1)
+texture = ExtResource("2_11lan")
