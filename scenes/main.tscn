@@ -47,3 +47,11 @@ position = Vector2(-72, -16)
 [node name="ButtonNormal" parent="." instance=ExtResource("4_o5qpj")]
 position = Vector2(-49, -16)
 door = NodePath("../DoorMedium2")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -176.0
+offset_top = -134.0
+offset_right = 86.0
+offset_bottom = -85.0
+text = "tryck 1 för att toggla batteri mode
+tryck e för knapp"
