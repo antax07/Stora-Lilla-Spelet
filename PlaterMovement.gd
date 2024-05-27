@@ -23,3 +23,19 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+# Collision shapes for different sizes
+@onready var collision_shape_big = $CollisionShapeBig
+@onready var collision_shape_normal = $CollisionShapeNormal
+@onready var collision_shape_small = $CollisionShapeSmall
+
+# The AnimatedSprite2D node
+@onready var animated_sprite = $AnimatedSprite2D
+
+# The TextureProgressBar node
+@onready var battery_progress_bar = $UI/VBoxContainer/TextureProgressBar
+
+# UI elements for delay
+@onready var delay_label = $UI/VBoxContainer/DelayLabel
+@onready var increase_delay_button = $UI/VBoxContainer/IncreaseDelayButton
+@onready var decrease_delay_button = $UI/VBoxContainer/DecreaseDelayButton

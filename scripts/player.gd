@@ -18,6 +18,10 @@ const SMALL_SCALE = 0.5
 const BATTERY_MAX = 3
 const BATTERY_DRAIN = 1
 
+const DELAY_MIN = 0
+const DELAY_MAX = 10
+const DELAY_STEP = 1
+
 @export var sprite_frames_big: SpriteFrames
 @export var sprite_frames_normal: SpriteFrames
 @export var sprite_frames_small: SpriteFrames
@@ -29,57 +33,97 @@ var jump_hold_counter = 0.0
 var is_wall_sliding = false
 var battery_level = BATTERY_MAX
 var battery_enabled = true
+var delay_time = 0
+var current_scale = NORMAL_SCALE
+var target_scale = NORMAL_SCALE
+var scale_change_timer = 0.0
+var is_scaling = false
+var near_charging_pole = false
 
 @onready var collision_shape_big = $CollisionShapeBig
 @onready var collision_shape_normal = $CollisionShapeNormal
 @onready var collision_shape_small = $CollisionShapeSmall
-@onready var texture_progress_bar = $UI/VBoxContainer/TextureProgressBar
 
 @onready var animated_sprite = $AnimatedSprite2D
-
-var current_scale = NORMAL_SCALE
+@onready var battery_progress_bar = $UI/VBoxContainer/TextureProgressBar
+@onready var delay_label = $UI/VBoxContainer/DelayLabel
+@onready var increase_delay_button = $UI/VBoxContainer/IncreaseDelayButton
+@onready var decrease_delay_button = $UI/VBoxContainer/DecreaseDelayButton
 
 func _ready():
 	set_collision_shape(NORMAL_SCALE)
 	update_battery_ui()
+	update_delay_ui()
+	increase_delay_button.connect("pressed", _on_increase_delay_button_pressed)
+	decrease_delay_button.connect("pressed", _on_decrease_delay_button_pressed)
+	var charging_pole = get_node("../ChargingPole")
+	charging_pole.connect("player_entered", _on_player_entered)
+	charging_pole.connect("player_exited", _on_player_exited)
 
 func set_collision_shape(scale):
 	if battery_enabled and battery_level <= 0:
 		return
 
+	if not battery_enabled and not near_charging_pole:
+		return
+
 	if scale == current_scale:
 		return
 
+	target_scale = scale
+
+	if delay_time > 0:
+		is_scaling = true
+		scale_change_timer = delay_time
+	else:
+		apply_scale_change()
+
+func apply_scale_change():
 	collision_shape_big.disabled = true
 	collision_shape_normal.disabled = true
 	collision_shape_small.disabled = true
 
-	if scale == BIG_SCALE:
+	if target_scale == BIG_SCALE:
 		collision_shape_big.disabled = false
 		animated_sprite.frames = sprite_frames_big
-	elif scale == NORMAL_SCALE:
+	elif target_scale == NORMAL_SCALE:
 		collision_shape_normal.disabled = false
 		animated_sprite.frames = sprite_frames_normal
-	elif scale == SMALL_SCALE:
+	elif target_scale == SMALL_SCALE:
 		collision_shape_small.disabled = false
 		animated_sprite.frames = sprite_frames_small
 
-	current_scale = scale
+	current_scale = target_scale
 
 	if battery_enabled:
 		battery_level -= BATTERY_DRAIN
 		battery_level = max(battery_level, 0)
 		update_battery_ui()
 
+	is_scaling = false
+
 func update_battery_ui():
-	if battery_enabled:
-		texture_progress_bar.value = (float(battery_level)/float(3)) * 100
-	else:
-		texture_progress_bar.visible = false
+	if battery_progress_bar:
+		battery_progress_bar.value = (float(battery_level) / BATTERY_MAX) * 100
+	if not battery_enabled:
+		battery_progress_bar.value = 0
+
+func update_delay_ui():
+	delay_label.text = str(delay_time) + " seconds"
 
 func recharge_battery():
 	battery_level = BATTERY_MAX
 	update_battery_ui()
+
+func _on_increase_delay_button_pressed():
+	if delay_time < DELAY_MAX:
+		delay_time += DELAY_STEP
+		update_delay_ui()
+
+func _on_decrease_delay_button_pressed():
+	if delay_time > DELAY_MIN:
+		delay_time -= DELAY_STEP
+		update_delay_ui()
 
 func _on_button_big_pressed():
 	set_collision_shape(BIG_SCALE)
@@ -89,8 +133,17 @@ func _on_button_normal_pressed():
 
 func _on_button_small_pressed():
 	set_collision_shape(SMALL_SCALE)
+	
+func _process(delta):
+	if Input.is_action_just_pressed("debug_1"):
+		if battery_enabled:
+			battery_enabled = false
+		else:
+			battery_enabled = true
 
 func _physics_process(delta):
+	update_battery_ui()
+	
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
@@ -168,3 +221,22 @@ func _physics_process(delta):
 
 	if not is_on_floor() and velocity.y > 0:
 		animated_sprite.play("fall")
+
+	if is_scaling:
+		scale_change_timer -= delta
+		if scale_change_timer <= 0:
+			apply_scale_change()
+
+func _on_player_entered():
+	near_charging_pole = true
+	if battery_enabled:
+		recharge_battery()
+	else:
+		battery_level = BATTERY_MAX
+		update_battery_ui()
+
+func _on_player_exited():
+	near_charging_pole = false
+	if not battery_enabled:
+		battery_level = 0
+		update_battery_ui()
