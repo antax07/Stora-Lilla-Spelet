@@ -11,36 +11,45 @@ const AIR_CONTROL = 0.3
 const JUMP_HOLD_TIME = 0.2
 const WALL_SLIDE_SPEED = 100.0
 
-# Constants for sprite sizes
 const BIG_SCALE = 2.0
 const NORMAL_SCALE = 1.0
 const SMALL_SCALE = 0.5
 
-# SpriteFrames for different sizes
+const BATTERY_MAX = 3
+const BATTERY_DRAIN = 1
+
 @export var sprite_frames_big: SpriteFrames
 @export var sprite_frames_normal: SpriteFrames
 @export var sprite_frames_small: SpriteFrames
 
-# Variables
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_time_counter = 0.0
 var jump_buffer_counter = 0.0
 var jump_hold_counter = 0.0
 var is_wall_sliding = false
+var battery_level = BATTERY_MAX
+var battery_enabled = true
 
-# Collision shapes for different sizes
 @onready var collision_shape_big = $CollisionShapeBig
 @onready var collision_shape_normal = $CollisionShapeNormal
 @onready var collision_shape_small = $CollisionShapeSmall
+@onready var texture_progress_bar = $UI/VBoxContainer/TextureProgressBar
 
-# The AnimatedSprite2D node
 @onready var animated_sprite = $AnimatedSprite2D
 
+var current_scale = NORMAL_SCALE
+
 func _ready():
-	# Ensure only the normal collision shape is active initially
 	set_collision_shape(NORMAL_SCALE)
+	update_battery_ui()
 
 func set_collision_shape(scale):
+	if battery_enabled and battery_level <= 0:
+		return
+
+	if scale == current_scale:
+		return
+
 	collision_shape_big.disabled = true
 	collision_shape_normal.disabled = true
 	collision_shape_small.disabled = true
@@ -54,6 +63,23 @@ func set_collision_shape(scale):
 	elif scale == SMALL_SCALE:
 		collision_shape_small.disabled = false
 		animated_sprite.frames = sprite_frames_small
+
+	current_scale = scale
+
+	if battery_enabled:
+		battery_level -= BATTERY_DRAIN
+		battery_level = max(battery_level, 0)
+		update_battery_ui()
+
+func update_battery_ui():
+	if battery_enabled:
+		texture_progress_bar.value = (float(battery_level)/float(3)) * 100
+	else:
+		texture_progress_bar.visible = false
+
+func recharge_battery():
+	battery_level = BATTERY_MAX
+	update_battery_ui()
 
 func _on_button_big_pressed():
 	set_collision_shape(BIG_SCALE)
@@ -142,5 +168,3 @@ func _physics_process(delta):
 
 	if not is_on_floor() and velocity.y > 0:
 		animated_sprite.play("fall")
-
-

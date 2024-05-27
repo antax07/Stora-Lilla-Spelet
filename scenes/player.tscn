@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://hj1fmu6xyd28"]
+[gd_scene load_steps=7 format=3 uid="uid://hj1fmu6xyd28"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dgudu"]
 [ext_resource type="SpriteFrames" uid="uid://drklf6fxh4wnw" path="res://scenes/sprite_frames_normal.tres" id="2_eemij"]
 [ext_resource type="SpriteFrames" uid="uid://kg4hrvv2xtqr" path="res://scenes/sprite_frames_big.tres" id="2_h48i2"]
 [ext_resource type="SpriteFrames" uid="uid://dfx31rf43raun" path="res://scenes/sprite_frames_small.tres" id="2_oc7od"]
+[ext_resource type="Texture2D" uid="uid://cggdfd3g31mdo" path="res://icon.svg" id="5_6yorm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p7ivy"]
 radius = 2.93255
@@ -16,21 +17,23 @@ sprite_frames_normal = ExtResource("2_eemij")
 sprite_frames_small = ExtResource("2_oc7od")
 
 [node name="CollisionShapeNormal" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1.11)
-scale = Vector2(1.705, 1.595)
+position = Vector2(0, 3.67)
+scale = Vector2(2.46, 2.04)
 shape = SubResource("CapsuleShape2D_p7ivy")
 
 [node name="CollisionShapeBig" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.315)
-scale = Vector2(4.23, 3.89)
+position = Vector2(0, 5.765)
+scale = Vector2(4.095, 3.675)
 shape = SubResource("CapsuleShape2D_p7ivy")
+disabled = true
 
 [node name="CollisionShapeSmall" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_p7ivy")
+disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_eemij")
-animation = &"jump"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -59,6 +62,10 @@ text = "Normal"
 [node name="ButtonSmall" type="Button" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "Small"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+texture_progress = ExtResource("5_6yorm")
 
 [connection signal="pressed" from="UI/VBoxContainer/ButtonBig" to="." method="_on_button_big_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/ButtonNormal" to="." method="_on_button_normal_pressed"]
