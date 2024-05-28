@@ -1,5 +1,6 @@
 extends Area2D
 
+@onready var player = %Player
 @onready var sprite_2d = $Sprite2D
 @export var toggle = false
 @export var door: NodePath
@@ -11,11 +12,11 @@ func _ready():
 	connect("body_exited", _on_body_exited)
 
 func _on_body_entered(body):
-	if body is CharacterBody2D:
+	if body is CharacterBody2D or body is RigidBody2D:
 		activate()
 
 func _on_body_exited(body):
-	if body is CharacterBody2D and not toggle:
+	if (body is CharacterBody2D or body is RigidBody2D) and not toggle:
 		deactivate()
 
 func activate():
